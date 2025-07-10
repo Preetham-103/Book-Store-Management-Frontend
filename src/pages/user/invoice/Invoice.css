@@ -1,0 +1,22 @@
+.inv-cont{
+    background-color: black;
+}
+.inv-cont2{
+    width: 50%;
+    margin:2rem;
+}
+.inv-icon{
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-right:0.5rem ;
+}
+@media (max-width: 768px) {
+    .inv-cont2{
+        width: 70%;
+    }
+  }
+  @media (max-width: 576px) {
+  .inv-cont2{
+    width: 100%;
+  }
+}
