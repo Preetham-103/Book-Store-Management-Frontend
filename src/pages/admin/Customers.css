@@ -5,6 +5,15 @@
   min-height: 100vh;
 }
 
+.admin-section-heading {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 600;
+  padding-left: 12px;
+  margin: 1.5rem 0 1rem;
+  border-left: 3px solid #3b82f6;
+  color: #e2e8f0;
+}
+
 .customers-header {
   display: flex;
   justify-content: space-between;
@@ -82,7 +91,7 @@
 .placeholder-thumb {
   width: 60px;
   height: 60px;
-  background-color: #f0f0f0;
+  background-color: #2d3134;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,6 +99,7 @@
   color: #888;
   text-align: center;
   margin: 0 auto;
+  border-radius: 4px;
 }
 
 .customers-table td img {
@@ -124,8 +134,8 @@
 }
 
 .badge.active {
-  background-color: #2d3333;
-  color: #aaffaa;
+  background-color: #1e3329;
+  color: #6ee7b7;
 }
 
 .badge.deleted {

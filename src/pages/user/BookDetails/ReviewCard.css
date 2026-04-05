@@ -60,8 +60,8 @@
   
   .review-actions button {
     background-color: transparent;
-    border: 1px solid #444;
-    color: #888;
+    border: 1px solid #555;
+    color: #c0c0c0;
     padding: 6px 12px;
     border-radius: 6px;
     font-size: 0.85rem;

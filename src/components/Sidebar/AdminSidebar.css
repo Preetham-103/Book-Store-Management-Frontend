@@ -47,7 +47,10 @@
 }
 
 .sidebar-link.active {
-  background-color: #2d3034;
+  background-color: #1e3a5f;
+  border-left: 3px solid #667eea;
+  padding-left: calc(1rem - 3px);
+  color: #93c5fd;
 }
 
 

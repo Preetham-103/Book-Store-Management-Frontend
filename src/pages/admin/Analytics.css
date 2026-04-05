@@ -84,7 +84,8 @@ h2 {
 
   .chart-card {
     padding: 1rem;
-    min-width: 700px;
+    min-width: 0;
+    width: 100%;
   }
 
   .charts-section {

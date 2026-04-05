@@ -304,15 +304,5 @@ const StyledWrapper = styled.div`
     background: #292929;
   }
 
-  .shadow-card {
-    background-color:rgb(52, 58, 64); /* Optional: subtle card background */
-    border-radius: 1rem;
-    padding: 1rem;
-    box-shadow: 0 4px 20px rgba(60, 67, 73, 0.2),
-      /* soft white glow */ 0 2px 10px rgba(52, 58, 64, 0.4); /* deeper black shadow */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-
-
 `;
 export default StyledWrapper;

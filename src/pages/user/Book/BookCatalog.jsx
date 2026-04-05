@@ -12,6 +12,29 @@ import BookFilters from "./BookFilters";
 import BookSearchBar from "./BookSearchBar";
 import BookCard from "./BookCard";
 
+const STATIC_CATALOG_BOOKS = [
+  { bookId: "s1",  title: "Harry Potter & the Sorcerer's Stone", author: { authName: "J.K. Rowling" },         price: 499, imageUrl: "https://covers.openlibrary.org/b/isbn/9780439708180-L.jpg" },
+  { bookId: "s2",  title: "The Hobbit",                          author: { authName: "J.R.R. Tolkien" },       price: 449, imageUrl: "https://covers.openlibrary.org/b/isbn/9780547928227-L.jpg" },
+  { bookId: "s3",  title: "The Fellowship of the Ring",          author: { authName: "J.R.R. Tolkien" },       price: 599, imageUrl: "https://covers.openlibrary.org/b/isbn/9780618640157-L.jpg" },
+  { bookId: "s4",  title: "Dune",                                author: { authName: "Frank Herbert" },        price: 549, imageUrl: "https://covers.openlibrary.org/b/isbn/9780441013593-L.jpg" },
+  { bookId: "s5",  title: "1984",                                author: { authName: "George Orwell" },        price: 299, imageUrl: "https://covers.openlibrary.org/b/isbn/9780451524935-L.jpg" },
+  { bookId: "s6",  title: "Brave New World",                     author: { authName: "Aldous Huxley" },        price: 349, imageUrl: "https://covers.openlibrary.org/b/isbn/9780060850524-L.jpg" },
+  { bookId: "s7",  title: "The Hitchhiker's Guide to the Galaxy",author: { authName: "Douglas Adams" },        price: 399, imageUrl: "https://covers.openlibrary.org/b/isbn/9780345391803-L.jpg" },
+  { bookId: "s8",  title: "To Kill a Mockingbird",               author: { authName: "Harper Lee" },           price: 349, imageUrl: "https://covers.openlibrary.org/b/isbn/9780061935466-L.jpg" },
+  { bookId: "s9",  title: "The Great Gatsby",                    author: { authName: "F. Scott Fitzgerald" },  price: 299, imageUrl: "https://covers.openlibrary.org/b/isbn/9780743273565-L.jpg" },
+  { bookId: "s10", title: "Pride and Prejudice",                 author: { authName: "Jane Austen" },          price: 249, imageUrl: "https://covers.openlibrary.org/b/isbn/9780141439518-L.jpg" },
+  { bookId: "s11", title: "Animal Farm",                         author: { authName: "George Orwell" },        price: 199, imageUrl: "https://covers.openlibrary.org/b/isbn/9780451526342-L.jpg" },
+  { bookId: "s12", title: "The Catcher in the Rye",              author: { authName: "J.D. Salinger" },        price: 299, imageUrl: "https://covers.openlibrary.org/b/isbn/9780316769174-L.jpg" },
+  { bookId: "s13", title: "The Da Vinci Code",                   author: { authName: "Dan Brown" },            price: 449, imageUrl: "https://covers.openlibrary.org/b/isbn/9780307474278-L.jpg" },
+  { bookId: "s14", title: "Gone Girl",                           author: { authName: "Gillian Flynn" },        price: 399, imageUrl: "https://covers.openlibrary.org/b/isbn/9780307588364-L.jpg" },
+  { bookId: "s15", title: "The Alchemist",                       author: { authName: "Paulo Coelho" },         price: 349, imageUrl: "https://covers.openlibrary.org/b/isbn/9780061122415-L.jpg" },
+  { bookId: "s16", title: "The Hunger Games",                    author: { authName: "Suzanne Collins" },      price: 449, imageUrl: "https://covers.openlibrary.org/b/isbn/9780439023481-L.jpg" },
+  { bookId: "s17", title: "The Girl with the Dragon Tattoo",     author: { authName: "Stieg Larsson" },        price: 499, imageUrl: "https://covers.openlibrary.org/b/isbn/9780307454546-L.jpg" },
+  { bookId: "s18", title: "Fahrenheit 451",                      author: { authName: "Ray Bradbury" },         price: 299, imageUrl: "https://covers.openlibrary.org/b/isbn/9781451673319-L.jpg" },
+  { bookId: "s19", title: "The Picture of Dorian Gray",          author: { authName: "Oscar Wilde" },          price: 249, imageUrl: "https://covers.openlibrary.org/b/isbn/9780141439570-L.jpg" },
+  { bookId: "s20", title: "Crime and Punishment",                author: { authName: "Fyodor Dostoevsky" },    price: 349, imageUrl: "https://covers.openlibrary.org/b/isbn/9780486415871-L.jpg" },
+];
+
 const BookCatalog = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -258,75 +281,63 @@ const BookCatalog = () => {
                 <div className="loader">
                   <span className="loader-text">loading</span>
                   <span className="load" />
-                </div>{" "}
+                </div>
               </div>
             </StyledWrapper>
-          ) : error ? (
-            <div className="text-center p-5 text-danger">
-              <p>{error}</p>
-            </div>
-          ) : (
-            <Row xs={1} sm={2} md={3} lg={5} className="g-4 p-4">
-              {books.length > 0 ? (
-                paginatedBooks.map((book) => (
+          ) : books.length > 0 ? (
+            <>
+              <Row xs={1} sm={2} md={3} lg={5} className="g-4 p-4">
+                {paginatedBooks.map((book) => (
                   <Col key={book.bookId || book.id}>
                     <StyledWrapper>
                       <div><BookCard book={book} /></div>
                     </StyledWrapper>
                   </Col>
-                ))
-              ) : (
-                <Col className="text-center p-5 text-secondary">
-                  <p>No books found matching your criteria.</p>
+                ))}
+              </Row>
+
+              {/* Pagination — only shown for real API results */}
+              <Row className="justify-content-center p-4">
+                <Col xs="auto">
+                  <Nav>
+                    <Nav.Link
+                      onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                      disabled={currentPage === 1}
+                      className="text-white rounded-pill"
+                    >
+                      <FontAwesomeIcon icon={faCaretLeft} />
+                    </Nav.Link>
+                    {[...Array(Math.ceil(books.length / BOOKS_PER_PAGE))].map((_, index) => (
+                      <Nav.Link
+                        key={index}
+                        onClick={() => setCurrentPage(index + 1)}
+                        className={`text-white rounded-pill ${currentPage === index + 1 ? "bg-secondary" : ""}`}
+                      >
+                        {index + 1}
+                      </Nav.Link>
+                    ))}
+                    <Nav.Link
+                      onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(books.length / BOOKS_PER_PAGE)))}
+                      disabled={currentPage === Math.ceil(books.length / BOOKS_PER_PAGE)}
+                      className="text-white rounded-pill"
+                    >
+                      <FontAwesomeIcon icon={faCaretRight} />
+                    </Nav.Link>
+                  </Nav>
                 </Col>
-              )}
+              </Row>
+            </>
+          ) : (
+            <Row xs={1} sm={2} md={3} lg={5} className="g-4 p-4">
+              {STATIC_CATALOG_BOOKS.map((book) => (
+                <Col key={book.bookId}>
+                  <StyledWrapper>
+                    <div><BookCard book={book} /></div>
+                  </StyledWrapper>
+                </Col>
+              ))}
             </Row>
           )}
-
-          {/* Pagination */}
-          <Row className="justify-content-center p-4">
-            <Col xs="auto">
-              <Nav>
-                <Nav.Link
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.max(prev - 1, 1))
-                  }
-                  disabled={currentPage === 1}
-                  className="text-white rounded-pill"
-                >
-                  <FontAwesomeIcon icon={faCaretLeft} />
-                </Nav.Link>
-                {[...Array(Math.ceil(books.length / BOOKS_PER_PAGE))].map(
-                  (_, index) => (
-                    <Nav.Link
-                      key={index}
-                      onClick={() => setCurrentPage(index + 1)}
-                      className={`text-white rounded-pill ${currentPage === index + 1 ? "bg-secondary" : ""
-                        }`}
-                    >
-                      {index + 1}
-                    </Nav.Link>
-                  )
-                )}
-                <Nav.Link
-                  onClick={() =>
-                    setCurrentPage((prev) =>
-                      Math.min(
-                        prev + 1,
-                        Math.ceil(books.length / BOOKS_PER_PAGE)
-                      )
-                    )
-                  }
-                  disabled={
-                    currentPage === Math.ceil(books.length / BOOKS_PER_PAGE)
-                  }
-                  className="text-white rounded-pill"
-                >
-                  <FontAwesomeIcon icon={faCaretRight} />
-                </Nav.Link>
-              </Nav>
-            </Col>
-          </Row>
         </Container>
       </Container>
     </div>

@@ -54,6 +54,15 @@
   font-size: 0.9rem;
 }
 
+.admin-section-heading {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 600;
+  padding-left: 12px;
+  margin: 1.5rem 0 1rem;
+  border-left: 3px solid #3b82f6;
+  color: #e2e8f0;
+}
+
 .orders-section {
   margin-top: 2rem;
 }

@@ -9,6 +9,15 @@
 }
 
 /* Header Section */
+.admin-section-heading {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 600;
+  padding-left: 12px;
+  margin: 1.5rem 0 1rem;
+  border-left: 3px solid #3b82f6;
+  color: #e2e8f0;
+}
+
 .books-header {
   display: flex;
   justify-content: space-between;
@@ -171,8 +180,8 @@
 }
 
 .stock-badge.in {
-  background-color: #2d3333;
-  color: #aaffaa;
+  background-color: #1e3329;
+  color: #6ee7b7;
 }
 
 .stock-badge.low {

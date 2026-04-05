@@ -4,14 +4,52 @@ import book6 from "../../../assets/Book6.jpg";
 import post from "../../../assets/post.webp";
 import post2 from "../../../assets/post2.webp";
 import Book7 from "../../../assets/Book7.jpg";
+import book1 from "../../../assets/book1.jpg";
+import book2 from "../../../assets/book2.jpg";
+import book3 from "../../../assets/book3.jpg";
+import book5 from "../../../assets/book5.jpg";
 import { fetchBookById, fetchRandomBooks } from "../../../services/bookService";
 import { fetchRatingReview } from "../../../services/review";
 import { useNavigate } from "react-router-dom";
 import './Home.css'
 
+const STATIC_TRENDING = [
+  { bookId: "t1", title: "Jujutsu Kaisen Vol.1", author: { authName: "Gege Akutami" }, price: 349, img: book1 },
+  { bookId: "t2", title: "Spy x Family Vol.13", author: { authName: "Tatsuya Endo" }, price: 299, img: book2 },
+  { bookId: "t3", title: "Solo Leveling Vol.1", author: { authName: "Chugong" }, price: 499, img: book3 },
+  { bookId: "t4", title: "Blue Lock Vol.1", author: { authName: "Muneyuki Kaneshiro" }, price: 349, img: book5 },
+  { bookId: "t5", title: "Chainsaw Man Vol.1", author: { authName: "Tatsuki Fujimoto" }, price: 399, img: book6 },
+];
+
+const STATIC_FEATURED = [
+  { bookId: "f1", title: "Demon Slayer Vol.1", author: { authName: "Koyoharu Gotouge" }, price: 349, img: Book7 },
+  { bookId: "f2", title: "Attack on Titan Vol.1", author: { authName: "Hajime Isayama" }, price: 449, img: book3 },
+  { bookId: "f3", title: "My Hero Academia Vol.1", author: { authName: "Kohei Horikoshi" }, price: 299, img: book1 },
+  { bookId: "f4", title: "One Piece Vol.1", author: { authName: "Eiichiro Oda" }, price: 349, img: book5 },
+  { bookId: "f5", title: "Naruto Vol.1", author: { authName: "Masashi Kishimoto" }, price: 299, img: book2 },
+];
+
+const SkeletonCards = () => (
+  <>
+    {[...Array(5)].map((_, i) => (
+      <div className="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2" key={i}>
+        <div className="skeleton-card">
+          <div className="skeleton-img" />
+          <div className="skeleton-body">
+            <div className="skeleton-line medium" />
+            <div className="skeleton-line short" />
+            <div className="skeleton-line short" />
+          </div>
+        </div>
+      </div>
+    ))}
+  </>
+);
+
 const Home = () => {
   const [books, setBooks] = useState([]);
   const [trends, setTrends] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +59,8 @@ const Home = () => {
         setBooks(res.data);
       } catch (error) {
         console.error("Error fetching books:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -85,12 +125,15 @@ const Home = () => {
             Trending Books
           </div>
           <div className="row g-3 g-md-4 justify-content-center justify-content-sm-start">
-            {trends.map((book, index) => (
+            {loading ? <SkeletonCards /> : (trends.length > 0 ? trends : STATIC_TRENDING).map((book, index) => (
               <div className="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2" key={index}>
                 <div className="card shadow-sm h-100">
                   <div className="position-relative">
-                    <img src={book.imageBase64 ? `data:image/png;base64,${book.imageBase64}` : dbook}
-                      alt={book.title} className="card-img-top"/>
+                    <img
+                      src={book.img || (book.imageBase64 ? `data:image/png;base64,${book.imageBase64}` : dbook)}
+                      alt={book.title}
+                      className="card-img-top"
+                    />
                   </div>
                   <div className="card-body p-2 p-sm-3 d-flex flex-column border-top border-secondary text-white-home bg-dark">
                     <h6 className="card-title mb-2 text-truncate" style={{ fontSize: "clamp(0.8rem, 2vw, 1rem)" }}>
@@ -99,7 +142,7 @@ const Home = () => {
                     <p className="mb-1 text-truncate small" style={{ fontSize: "clamp(0.7rem, 1.5vw, 0.85rem)" }}>
                       By {book.author?.authName}
                     </p>
-                    <div className="mb-2 fw-bold " style={{ fontSize: "clamp(0.8rem, 2vw, 1rem)" }}>
+                    <div className="mb-2 fw-bold" style={{ fontSize: "clamp(0.8rem, 2vw, 1rem)" }}>
                       ₹ {book.price}
                     </div>
                     <button
@@ -123,13 +166,14 @@ const Home = () => {
             Featured Books
           </div>
           <div className="row g-3 g-md-4 justify-content-center justify-content-sm-start">
-            {books.map((book, index) => (
+            {loading ? <SkeletonCards /> : (books.length > 0 ? books : STATIC_FEATURED).map((book, index) => (
               <div className="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2" key={index}>
                 <div className="card shadow-sm h-100">
                   <div className="position-relative">
                     <img
-                      src={book.imageBase64 ? `data:image/png;base64,${book.imageBase64}` : dbook}
-                      alt={book.title} className="card-img-top"
+                      src={book.img || (book.imageBase64 ? `data:image/png;base64,${book.imageBase64}` : dbook)}
+                      alt={book.title}
+                      className="card-img-top"
                     />
                   </div>
                   <div className="card-body p-2 p-sm-3 d-flex flex-column border-top border-secondary text-white-home bg-dark">
@@ -139,7 +183,7 @@ const Home = () => {
                     <p className="mb-1 text-truncate small" style={{ fontSize: "clamp(0.7rem, 1.5vw, 0.85rem)" }}>
                       By {book.author?.authName}
                     </p>
-                    <div className="mb-2 fw-bold " style={{ fontSize: "clamp(0.8rem, 2vw, 1rem)" }}>
+                    <div className="mb-2 fw-bold" style={{ fontSize: "clamp(0.8rem, 2vw, 1rem)" }}>
                       ₹ {book.price}
                     </div>
                     <button

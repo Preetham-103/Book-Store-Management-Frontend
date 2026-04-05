@@ -1,7 +1,7 @@
 .admin-navbar {
   display: flex;
   justify-content: space-between;
-  align-items: right;
+  align-items: center;
   background: linear-gradient(135deg, #1a1d21 0%, #2c3038 100%);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -131,7 +131,7 @@
 
   .admin-controls {
     width: 100%;
-    justify-content: right;
+    justify-content: flex-end;
     gap: 1rem;
     flex-wrap: wrap;
     margin-top: 0.75rem;

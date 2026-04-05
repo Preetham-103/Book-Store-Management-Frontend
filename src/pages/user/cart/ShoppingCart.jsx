@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { cartService } from "../../../services/cartService";
-import EventEmitter from '../../../utils/cartEvents'
+import EventEmitter from '../../../utils/cartEvents';
+import './ShoppingCart.css';
 
 
 const ShoppingCart = () => {
@@ -264,9 +265,9 @@ const ShoppingCart = () => {
           className="d-flex flex-column flex-grow-1"
           style={{ maxWidth: "960px", backgroundColor: "#131516" }}
         >
-          <div className="back-button p-2 p-md-4" onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
+          <button className="cart-back-btn p-2 p-md-4" onClick={() => navigate(-1)}>
             ← Back
-          </div>
+          </button>
           
           <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 px-2 px-md-4 py-2">
             <h1 className="text-white fs-2 fw-bold lh-sm mb-0">Shopping Cart</h1>
@@ -556,81 +557,58 @@ const ShoppingCart = () => {
             </div>
           </div>
 
-          <h3 className="text-white fs-5 fw-bold lh-sm px-2 px-md-4 pb-2 pt-4">
-            Cart Summary
-          </h3>
-
           <div className="px-2 px-md-4">
-            <div className="row g-0 border-top border-secondary py-3">
-              <div className="col-6 col-sm-8">
-                <p
-                  className="fs-6 fw-normal mb-0"
-                  style={{ color: "#E2DFD2" }}
-                >
-                  Subtotal
-                </p>
-              </div>
-              <div className="col-6 col-sm-4 text-end">
-                <p className="text-white fs-6 fw-normal mb-0">
-                  ₹ {totals.subtotal.toFixed(2)}
-                </p>
-              </div>
-            </div>
+            <div className="cart-summary-box">
+              <h3 className="text-white fs-5 fw-bold lh-sm pb-2">
+                Cart Summary
+              </h3>
 
-            <div className="row g-0 border-top border-secondary py-3">
-              <div className="col-6 col-sm-8">
-                <p
-                  className="fs-6 fw-normal mb-0"
-                  style={{ color: "#E2DFD2" }}
-                >
-                  Shipping
-                </p>
+              <div className="row g-0 border-top border-secondary py-3">
+                <div className="col-6 col-sm-8">
+                  <p className="fs-6 fw-normal mb-0" style={{ color: "#E2DFD2" }}>Subtotal</p>
+                </div>
+                <div className="col-6 col-sm-4 text-end">
+                  <p className="text-white fs-6 fw-normal mb-0">₹ {totals.subtotal.toFixed(2)}</p>
+                </div>
               </div>
-              <div className="col-6 col-sm-4 text-end">
-                <p className="text-white fs-6 fw-normal mb-0">
-                  ₹ {totals.shipping.toFixed(2)}
-                </p>
-              </div>
-            </div>
 
-            <div className="row g-0 border-top border-secondary py-3">
-              <div className="col-6 col-sm-8">
-                <p className="fs-6 fw-normal mb-0" style={{ color: "#E2DFD2" }}>
-                  Taxes
-                </p>
+              <div className="row g-0 border-top border-secondary py-3">
+                <div className="col-6 col-sm-8">
+                  <p className="fs-6 fw-normal mb-0" style={{ color: "#E2DFD2" }}>Shipping</p>
+                </div>
+                <div className="col-6 col-sm-4 text-end">
+                  <p className="text-white fs-6 fw-normal mb-0">₹ {totals.shipping.toFixed(2)}</p>
+                </div>
               </div>
-              <div className="col-6 col-sm-4 text-end">
-                <p className="text-white fs-6 fw-normal mb-0">
-                  ₹ {totals.taxes.toFixed(2)}
-                </p>
+
+              <div className="row g-0 border-top border-secondary py-3">
+                <div className="col-6 col-sm-8">
+                  <p className="fs-6 fw-normal mb-0" style={{ color: "#E2DFD2" }}>Taxes</p>
+                </div>
+                <div className="col-6 col-sm-4 text-end">
+                  <p className="text-white fs-6 fw-normal mb-0">₹ {totals.taxes.toFixed(2)}</p>
+                </div>
               </div>
+
+              <div className="row g-0 border-top border-secondary py-3">
+                <div className="col-6 col-sm-8">
+                  <p className="fs-6 fw-bold mb-0 text-white">Total</p>
+                </div>
+                <div className="col-6 col-sm-4 text-end">
+                  <p className="cart-total-value fs-5 mb-0">₹ {totals.total.toFixed(2)}</p>
+                </div>
+              </div>
+
+              <p className="mb-0 mt-1" style={{ color: "#6b7280", fontSize: "0.85rem" }}>
+                Shipping costs may vary depending on your location and selected delivery method.
+              </p>
             </div>
           </div>
-
-          <p
-            className="text-white fs-6 fw-normal pb-3 pt-1 px-2 px-md-4"
-            style={{ color: "#E2DFD2" }}
-          >
-            Shipping costs may vary depending on your location and selected
-            delivery method.
-          </p>
-
-          <h3 className="text-white fs-5 fw-bold lh-sm px-2 px-md-4 pb-2 pt-4">
-            Total
-          </h3>
-
-          <p
-            className="fs-6 fw-normal pb-3 pt-1 px-2 px-md-4"
-            style={{ color: "#E2DFD2" }}
-          >
-            ₹ {totals.total.toFixed(2)}
-          </p>
 
           <div className="d-flex px-2 px-md-4 py-3 justify-content-center justify-content-sm-end">
             <button
               type="button"
-              className="btn rounded-pill text-dark fw-bold px-4 w-100 w-sm-auto"
-              style={{ height: "40px", backgroundColor: "#dee8f1", maxWidth: "300px" }}
+              className="btn-checkout"
               onClick={handleProceedToCheckout}
               disabled={cartItems.length === 0}
             >

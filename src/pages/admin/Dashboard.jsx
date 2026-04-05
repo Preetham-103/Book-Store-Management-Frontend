@@ -108,7 +108,7 @@ const Dashboard = () => {
             </div>
 
             <div className="orders-section">
-                <h3 className="orders-heading">Recent Activity</h3>
+                <h3 className="admin-section-heading">Recent Activity</h3>
                 <div className="scrollable-table">
                     <table className="orders-table">
                         <thead>
@@ -136,7 +136,7 @@ const Dashboard = () => {
             </div>
 
             <div className="stock-alert-section">
-                <h3>Stock Alerts</h3>
+                <h3 className="admin-section-heading">Stock Alerts</h3>
                 <div className="scrollable-table">
                     <table className="stock-alert-table">
                         <thead>
