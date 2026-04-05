@@ -2,15 +2,13 @@
   "name": "bookstore-frontend",
   "private": true,
   "version": "0.0.0",
-  // Below one code line is for public url
   "homepage": "https://<your-username>.github.io/<your-repo-name>",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "npx vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    // below two lines are for public url
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
 
